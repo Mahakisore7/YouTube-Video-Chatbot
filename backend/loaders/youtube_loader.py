@@ -1,31 +1,38 @@
 import os 
-import subprocess
 import uuid
-from whisper import load_model,transcibe 
+import yt_dlp
+from whisper import load_model, transcribe 
 
 
 AUDIO_DIR = "temp_audio"
 
 
-def download_audio(yotube_url: str) -> str:
-
-    os.makedirs(AUDIO_DIR,exist_ok=True)
+def download_audio(youtube_url: str) -> str:
+    os.makedirs(AUDIO_DIR, exist_ok=True)
     file_id = str(uuid.uuid4())
-    output_path = os.path.join(AUDIO_DIR,f"{file_id}.mp3")
-
-
-    command = [
-        "yt-dlp",
-        "-f","bestaudio",
-        "--extract-audio",
-        "--audio-format","mp3"
-        "-o",output_path,
-        yotube_url
-    ]
-
-
-    subprocess.run(command,check=True)
-    return output_path
+    output_path = os.path.join(AUDIO_DIR, f"{file_id}.%(ext)s")
+    
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'extractaudio': True,
+        'audioformat': 'mp3',
+        'outtmpl': output_path,
+        'noplaylist': True,
+        'quiet': True,
+        'no_warnings': True,
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+    }
+    
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([youtube_url])
+    
+    # Return the actual file path with .mp3 extension
+    actual_output_path = os.path.join(AUDIO_DIR, f"{file_id}.mp3")
+    return actual_output_path
 
 
 
@@ -54,3 +61,5 @@ def extract_transcript_from_youtube(url: str, model_size: str = "base") -> dict:
         }
     except Exception as e:
         raise RuntimeError(f"Transcript extraction failed: {str(e)}")
+    
+print(extract_transcript_from_youtube("https://youtube.com/shorts/Ex2r-SG4SFs?si=2sDjStqSIHPSjGih"))
