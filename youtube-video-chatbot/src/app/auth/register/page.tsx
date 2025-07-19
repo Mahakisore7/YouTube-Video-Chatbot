@@ -2,9 +2,11 @@
 
 import { Button } from "@/components/ui/button"
 import * as React from "react"
-import {Moon, Sun,Eye,EyeOff} from "lucide-react"
+import {Eye,EyeOff} from "lucide-react"
+import ThemeButton from "@/components/theme-button"
 import { useTheme } from "next-themes"
 import Link from "next/link"
+import {signIn} from "next-auth/react"
 import {
   Card,
   CardContent,
@@ -17,7 +19,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export default function RegisterPage() {
-  const { setTheme } = useTheme()
   const [showPassword, setShowPassword] = React.useState(false)
   const [confirmShowPassword, setConfirmShowPassword] = React.useState(false)
 
@@ -63,11 +64,7 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center ">
-      <Button variant="outline" size="icon" className="fixed top-4 right-4 z-50 animate-bounce" onClick={() => setTheme((theme) => theme === "light" ? "dark" : "light")}>
-          <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
+        <ThemeButton />
     <Card className="p-8 w-full max-w-sm">
       <CardHeader>
         <CardTitle className="text-xl">Register</CardTitle>
@@ -126,7 +123,7 @@ export default function RegisterPage() {
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button variant="outline" className="w-full">
+        <Button variant="outline" className="w-full" onClick={()=>signIn("google",{callbackUrl:"/home"})}>
           Register with Google
         </Button>
         <div className="mt-4 text-center text-sm">

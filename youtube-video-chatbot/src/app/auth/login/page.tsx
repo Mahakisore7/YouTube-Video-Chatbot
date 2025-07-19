@@ -15,9 +15,10 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import ThemeButton from "@/components/theme-button"
+import {signIn} from "next-auth/react"
 
 export default function LoginPage() {
-  const { setTheme } = useTheme()
   const [showPassword, setShowPassword] = React.useState(false)
 
   function handleSubmit(event: React.FormEvent) {
@@ -54,11 +55,7 @@ export default function LoginPage() {
   
   return (
     <div className="min-h-screen flex items-center justify-center ">
-      <Button variant="outline" size="icon" className="fixed top-4 right-4 z-50 animate-bounce" onClick={() => setTheme((theme) => theme === "light" ? "dark" : "light")}>
-          <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
+    <ThemeButton/>
     <Card className="p-8 w-full max-w-sm">
       <CardHeader>
         <CardTitle>Login to your account</CardTitle>
@@ -111,7 +108,9 @@ export default function LoginPage() {
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button variant="outline" className="w-full">
+        <Button variant="outline" className="w-full" onClick={() => {
+          signIn("google",{callbackUrl: "/home"})
+        }}>
           Login with Google
         </Button>
         <div className="mt-4 text-center text-sm">
