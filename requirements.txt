@@ -1,0 +1,45 @@
+# FastAPI Core
+fastapi==0.111.0
+uvicorn[standard]==0.30.1
+
+# Auth0 JWT Verification
+python-jose==3.3.0
+python-dotenv==1.0.1
+
+# LangChain & Vector DB
+langchain==0.2.0
+chromadb
+sentence-transformers==2.7.0
+faiss-cpu  # Optional: for FAISS alternative
+
+# LLM & Transformers
+openai==1.30.1
+transformers==4.42.1
+torch==2.3.0
+tqdm==4.66.4
+
+# Whisper & Audio Processing
+whisper==1.1.10
+yt-dlp==2024.5.27  # <-- changed from 2024.7.4
+ffmpeg-python==0.2.0
+
+# Transcript Parsing & NLP
+webvtt-py==0.4.6
+nltk==3.8.1
+regex==2023.12.25
+
+
+# PDF / Export (Optional)
+fpdf==1.7.2  # or use weasyprint/reportlab if needed
+
+# Database
+SQLAlchemy==2.0.30
+sqlite-utils==3.36
+pydantic==2.7.3
+
+# Utilities
+requests==2.32.3
+aiofiles==23.2.1
+httpx==0.27.0
+python-multipart==0.0.9
+yt-dlp==2025.6.30
