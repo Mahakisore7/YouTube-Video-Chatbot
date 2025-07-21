@@ -21,4 +21,8 @@ class AnswerResponse(BaseModel):
     sources: List[str]  # List of timestamps or text snippets
 
 class ErrorResponse(BaseModel):
+
     detail: str
+
+    detail: str
+

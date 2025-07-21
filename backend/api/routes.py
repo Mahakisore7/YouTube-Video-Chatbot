@@ -40,4 +40,3 @@ def query_transcript(
 # Optional public health endpoint
 @router.get("/ping")
 def ping():
-    return {"message": "pong"}

@@ -4,7 +4,6 @@ from fastapi.staticfiles import StaticFiles
 
 
 from config import settings
-from api.routes import routes api_routes
 
 
 app = FastAPI(

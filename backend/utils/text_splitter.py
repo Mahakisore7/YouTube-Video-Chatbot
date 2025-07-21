@@ -8,4 +8,6 @@ def get_text_splitter():
         chunk_overlap=100,
         separators=["\n\n", "\n", ".", "!", "?", " ", ""],
         length_function=len,
+
     )
+
