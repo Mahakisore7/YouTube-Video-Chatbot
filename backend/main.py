@@ -1,18 +1,8 @@
+# backend/main.py
+
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
+from backend.api.routes import router as api_router
 
+app = FastAPI()
 
-from config import settings
-
-
-app = FastAPI(
-    title="Youtube Transcript RAG API",
-    description="Backend for RAG-powered Youtube Q&A System",
-    version="1.0.0"
-)
-
-
-app.add_middleware(
-    
-)
+app.include_router(api_router, prefix="/api")
